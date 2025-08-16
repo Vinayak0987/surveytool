@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoSPI Smart Survey Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    <span class="emblem">🏛️</span>
+                    <div class="logo-text">
+                        <h1>MoSPI</h1>
+                        <p>Smart Survey Platform</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <select class="language-selector form-control">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+                <div class="user-info">
+                    <span>Survey Administrator</span>
+                    <div class="avatar">SA</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-item active" data-section="dashboard">📊 Dashboard</a></li>
+                <li><a href="#" class="nav-item" data-section="survey-builder">🔧 Survey Builder</a></li>
+                <li><a href="#" class="nav-item" data-section="distribution">📢 Distribution Hub</a></li>
+                <li><a href="#" class="nav-item" data-section="ai-avatar">🤖 AI Avatar</a></li>
+                <li><a href="#" class="nav-item" data-section="monitoring">📈 Live Monitoring</a></li>
+                <li><a href="#" class="nav-item" data-section="quality">✅ Quality Center</a></li>
+                <li><a href="#" class="nav-item" data-section="analytics">📊 Analytics</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="page-header">
+                    <h2>Platform Overview</h2>
+                    <p>Welcome to MoSPI Smart Survey Platform - Empowering data collection across India</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-content">
+                            <h3>Active Surveys</h3>
+                            <div class="stat-number">24</div>
+                            <div class="stat-trend positive">+12% this month</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3>Total Responses</h3>
+                            <div class="stat-number">31,038</div>
+                            <div class="stat-trend positive">+8% this week</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3>Completion Rate</h3>
+                            <div class="stat-number">82%</div>
+                            <div class="stat-trend positive">+5% improvement</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🌏</div>
+                        <div class="stat-content">
+                            <h3>States Covered</h3>
+                            <div class="stat-number">28</div>
+                            <div class="stat-trend neutral">Pan-India coverage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn--primary" onclick="switchSection('survey-builder')">🔧 Create New Survey</button>
+                        <button class="btn btn--secondary" onclick="switchSection('monitoring')">📈 View Live Data</button>
+                        <button class="btn btn--outline" onclick="switchSection('analytics')">📊 Generate Report</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Survey Builder Section -->
+            <section id="survey-builder" class="section">
+                <div class="page-header">
+                    <h2>Survey Builder</h2>
+                    <p>Create comprehensive surveys with our no-code drag-and-drop interface</p>
+                </div>
+
+                <div class="builder-layout">
+                    <div class="builder-sidebar">
+                        <div class="question-bank">
+                            <h3>Question Bank</h3>
+                            <div class="question-types">
+                                <div class="question-type" draggable="true" data-type="multiple_choice">
+                                    <div class="type-icon">☑️</div>
+                                    <div class="type-name">Multiple Choice</div>
+                                </div>
+                                <div class="question-type" draggable="true" data-type="rating">
+                                    <div class="type-icon">⭐</div>
+                                    <div class="type-name">Rating Scale</div>
+                                </div>
+                                <div class="question-type" draggable="true" data-type="text">
+                                    <div class="type-icon">📝</div>
+                                    <div class="type-name">Text Input</div>
+                                </div>
+                                <div class="question-type" draggable="true" data-type="conditional">
+                                    <div class="type-icon">🔀</div>
+                                    <div class="type-name">Conditional Logic</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-generator">
+                            <h3>AI Question Generator</h3>
+                            <div class="form-group">
+                                <label class="form-label">Describe what you want to ask:</label>
+                                <textarea class="form-control" id="ai-prompt" placeholder="e.g., I want to know about household income levels in rural areas"></textarea>
+                                <button class="btn btn--primary" onclick="generateAIQuestion()">Generate Question</button>
+                            </div>
+                            <div id="ai-suggestions" class="ai-suggestions hidden"></div>
+                        </div>
+                    </div>
+
+                    <div class="builder-main">
+                        <div class="builder-toolbar">
+                            <button class="btn btn--sm btn--secondary">💾 Save</button>
+                            <button class="btn btn--sm btn--outline">👁️ Preview</button>
+                            <button class="btn btn--sm btn--outline">🌐 Languages</button>
+                            <button class="btn btn--sm btn--primary">🚀 Publish</button>
+                        </div>
+
+                        <div class="survey-canvas" id="survey-canvas">
+                            <div class="canvas-placeholder">
+                                <p>Drag and drop question types from the left panel to start building your survey</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="builder-properties">
+                        <h3>Question Properties</h3>
+                        <div id="question-properties" class="properties-panel">
+                            <p class="properties-placeholder">Select a question to edit its properties</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Distribution Hub Section -->
+            <section id="distribution" class="section">
+                <div class="page-header">
+                    <h2>Multi-Channel Distribution Hub</h2>
+                    <p>Deploy surveys across multiple channels for maximum reach</p>
+                </div>
+
+                <div class="distribution-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="whatsapp">📱 WhatsApp</button>
+                        <button class="tab-btn" data-tab="email">📧 Email</button>
+                        <button class="tab-btn" data-tab="web">🌐 Web Portal</button>
+                        <button class="tab-btn" data-tab="qr">📷 QR Code</button>
+                        <button class="tab-btn" data-tab="phone">📞 Phone/IVR</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-panel active" id="whatsapp">
+                            <div class="channel-config">
+                                <div class="config-section">
+                                    <h3>WhatsApp Configuration</h3>
+                                    <div class="form-group">
+                                        <label class="form-label">Target Audience</label>
+                                        <select class="form-control">
+                                            <option>All Registered Users</option>
+                                            <option>Rural Population</option>
+                                            <option>Urban Population</option>
+                                            <option>Specific Demographics</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Message Template</label>
+                                        <textarea class="form-control" rows="4">Namaste! Government of India is conducting an important survey to improve public services. Please participate: [Survey Link]</textarea>
+                                    </div>
+                                    <button class="btn btn--primary">📤 Send Survey</button>
+                                </div>
+                                <div class="preview-section">
+                                    <h3>WhatsApp Preview</h3>
+                                    <div class="whatsapp-mockup">
+                                        <div class="message-bubble">
+                                            <p><strong>MoSPI Survey</strong></p>
+                                            <p>Namaste! Government of India is conducting an important survey...</p>
+                                            <button class="whatsapp-btn">📋 Take Survey</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-panel" id="email">
+                            <div class="channel-config">
+                                <h3>Email Distribution</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Subject Line</label>
+                                    <input type="text" class="form-control" value="Important Government Survey - Your Opinion Matters">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Template</label>
+                                    <textarea class="form-control" rows="6">Dear Citizen,
+
+The Ministry of Statistics and Programme Implementation (MoSPI) invites you to participate in a national survey that will help improve government services across India.
+
+Your responses are confidential and will contribute to better policy decisions.
+
+[Survey Button]
+
+Thank you for your participation.
+MoSPI Team</textarea>
+                                </div>
+                                <button class="btn btn--primary">📧 Send Email Campaign</button>
+                            </div>
+                        </div>
+
+                        <div class="tab-panel" id="web">
+                            <div class="channel-config">
+                                <h3>Web Portal Integration</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Survey URL</label>
+                                    <input type="text" class="form-control" value="https://surveys.mospi.gov.in/survey/ns2024" readonly>
+                                    <button class="btn btn--sm btn--outline">📋 Copy Link</button>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Embed Code</label>
+                                    <textarea class="form-control" rows="3" readonly>&lt;iframe src="https://surveys.mospi.gov.in/embed/ns2024" width="100%" height="600"&gt;&lt;/iframe&gt;</textarea>
+                                    <button class="btn btn--sm btn--outline">📋 Copy Code</button>
+                                </div>
+                                <button class="btn btn--primary">🌐 Activate Web Portal</button>
+                            </div>
+                        </div>
+
+                        <div class="tab-panel" id="qr">
+                            <div class="channel-config">
+                                <h3>QR Code Generation</h3>
+                                <div class="qr-generator">
+                                    <div class="qr-code">
+                                        <div class="qr-placeholder">
+                                            <p>QR Code</p>
+                                            <div class="qr-visual">⬛⬜⬛⬜⬛<br>⬜⬛⬜⬛⬜<br>⬛⬜⬛⬜⬛<br>⬜⬛⬜⬛⬜<br>⬛⬜⬛⬜⬛</div>
+                                        </div>
+                                    </div>
+                                    <div class="qr-options">
+                                        <button class="btn btn--primary">📥 Download QR Code</button>
+                                        <button class="btn btn--outline">📄 Generate Poster</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-panel" id="phone">
+                            <div class="channel-config">
+                                <h3>Phone/IVR Configuration</h3>
+                                <div class="form-group">
+                                    <label class="form-label">IVR Script</label>
+                                    <textarea class="form-control" rows="6">Welcome to MoSPI National Survey. Your participation is important for India's development.
+
+Press 1 to continue in Hindi
+Press 2 to continue in English
+Press 3 for other languages
+
+Question 1: What is your primary occupation?
+Press 1 for Agriculture
+Press 2 for Manufacturing...</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number List</label>
+                                    <input type="file" class="form-control" accept=".csv,.xlsx">
+                                </div>
+                                <button class="btn btn--primary">📞 Start Phone Campaign</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="distribution-stats">
+                    <h3>Channel Performance</h3>
+                    <div class="channel-stats">
+                        <div class="channel-stat">
+                            <div class="stat-header">📱 WhatsApp</div>
+                            <div class="stat-metrics">
+                                <span>Sent: 15,000</span>
+                                <span>Completed: 12,500</span>
+                                <span class="completion-rate">83%</span>
+                            </div>
+                        </div>
+                        <div class="channel-stat">
+                            <div class="stat-header">📞 Phone/IVR</div>
+                            <div class="stat-metrics">
+                                <span>Sent: 8,000</span>
+                                <span>Completed: 6,200</span>
+                                <span class="completion-rate">78%</span>
+                            </div>
+                        </div>
+                        <div class="channel-stat">
+                            <div class="stat-header">🌐 Web Portal</div>
+                            <div class="stat-metrics">
+                                <span>Sent: 5,000</span>
+                                <span>Completed: 4,100</span>
+                                <span class="completion-rate">82%</span>
+                            </div>
+                        </div>
+                        <div class="channel-stat">
+                            <div class="stat-header">📧 Email</div>
+                            <div class="stat-metrics">
+                                <span>Sent: 3,000</span>
+                                <span>Completed: 2,100</span>
+                                <span class="completion-rate">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Avatar Section -->
+            <section id="ai-avatar" class="section">
+                <div class="page-header">
+                    <h2>AI Avatar Interface</h2>
+                    <p>Interactive AI-powered survey conductor for enhanced user engagement</p>
+                </div>
+
+                <div class="avatar-layout">
+                    <div class="avatar-config">
+                        <h3>Avatar Configuration</h3>
+                        <div class="form-group">
+                            <label class="form-label">Select Avatar</label>
+                            <div class="avatar-options">
+                                <div class="avatar-option active" data-avatar="female">
+                                    <div class="avatar-preview">👩</div>
+                                    <span>Priya (Female)</span>
+                                </div>
+                                <div class="avatar-option" data-avatar="male">
+                                    <div class="avatar-preview">👨</div>
+                                    <span>Rajesh (Male)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Voice Language</label>
+                            <select class="form-control">
+                                <option value="en">English</option>
+                                <option value="hi">Hindi</option>
+                                <option value="bn">Bengali</option>
+                                <option value="te">Telugu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Voice Speed</label>
+                            <input type="range" min="0.5" max="2" value="1" step="0.1" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="avatar-interface">
+                        <div class="avatar-display">
+                            <div class="avatar-character" id="avatar-character">
+                                <div class="avatar-face">👩</div>
+                                <div class="avatar-speaking hidden" id="avatar-speaking">
+                                    <div class="speaking-indicator">🗨️</div>
+                                </div>
+                            </div>
+                            <div class="avatar-status" id="avatar-status">Ready to start survey</div>
+                        </div>
+
+                        <div class="conversation-area">
+                            <div class="conversation-log" id="conversation-log">
+                                <div class="conversation-item avatar-message">
+                                    <div class="message-avatar">🤖</div>
+                                    <div class="message-content">
+                                        <p>Hello! I'm Priya, your AI survey assistant. I'll help you complete this survey in your preferred language. Shall we begin?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conversation-controls">
+                                <button class="btn btn--primary" onclick="startAvatarSurvey()">🎙️ Start Voice Survey</button>
+                                <button class="btn btn--secondary" onclick="pauseAvatarSurvey()">⏸️ Pause</button>
+                                <button class="btn btn--outline" onclick="resetAvatarSurvey()">🔄 Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="avatar-features">
+                    <h3>Avatar Capabilities</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🗣️</div>
+                            <h4>Text-to-Speech</h4>
+                            <p>Natural voice synthesis in 8 Indian languages</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎤</div>
+                            <h4>Voice Recognition</h4>
+                            <p>Advanced speech recognition for voice responses</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧠</div>
+                            <h4>Smart Conversation</h4>
+                            <p>Context-aware responses and clarifications</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎭</div>
+                            <h4>Cultural Adaptation</h4>
+                            <p>Culturally appropriate expressions and gestures</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Monitoring Section -->
+            <section id="monitoring" class="section">
+                <div class="page-header">
+                    <h2>Real-Time Monitoring Dashboard</h2>
+                    <p>Live tracking of survey progress and performance metrics</p>
+                </div>
+
+                <div class="monitoring-grid">
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title">Response Rate</span>
+                                <span class="metric-trend positive">+5%</span>
+                            </div>
+                            <div class="metric-value">82%</div>
+                            <div class="metric-status good">Good</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title">Data Completeness</span>
+                                <span class="metric-trend positive">+2%</span>
+                            </div>
+                            <div class="metric-value">94%</div>
+                            <div class="metric-status excellent">Excellent</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title">Avg Response Time</span>
+                                <span class="metric-trend positive">-0.3min</span>
+                            </div>
+                            <div class="metric-value">7.8<span class="unit">min</span></div>
+                            <div class="metric-status good">Good</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title">Quality Score</span>
+                                <span class="metric-trend positive">+3%</span>
+                            </div>
+                            <div class="metric-value">91%</div>
+                            <div class="metric-status excellent">Excellent</div>
+                        </div>
+                    </div>
+
+                    <div class="india-map-section">
+                        <h3>Geographic Distribution</h3>
+                        <div class="india-map">
+                            <div class="map-placeholder">
+                                <p>🗺️ Interactive Map of India</p>
+                                <div class="state-indicators">
+                                    <div class="state-dot" style="top: 20%; left: 40%;" data-state="Rajasthan" title="Rajasthan: 987 responses">📍</div>
+                                    <div class="state-dot" style="top: 60%; left: 35%;" data-state="Karnataka" title="Karnataka: 1,456 responses">📍</div>
+                                    <div class="state-dot" style="top: 50%; left: 50%;" data-state="Maharashtra" title="Maharashtra: 1,678 responses">📍</div>
+                                    <div class="state-dot" style="top: 70%; left: 45%;" data-state="Tamil Nadu" title="Tamil Nadu: 1,234 responses">📍</div>
+                                    <div class="state-dot" style="top: 30%; left: 30%;" data-state="Gujarat" title="Gujarat: 1,098 responses">📍</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <h3>Response Trends (Last 7 Days)</h3>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="responseChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="enumerator-performance">
+                            <h3>Enumerator Performance</h3>
+                            <div class="enumerator-list">
+                                <div class="enumerator-item">
+                                    <div class="enumerator-info">
+                                        <div class="enumerator-name">Priya Sharma</div>
+                                        <div class="enumerator-location">Karnataka</div>
+                                    </div>
+                                    <div class="enumerator-stats">
+                                        <span class="completed">127 surveys</span>
+                                        <span class="quality-score">92% quality</span>
+                                        <span class="status active">Active</span>
+                                    </div>
+                                </div>
+                                <div class="enumerator-item">
+                                    <div class="enumerator-info">
+                                        <div class="enumerator-name">Rajesh Kumar</div>
+                                        <div class="enumerator-location">Rajasthan</div>
+                                    </div>
+                                    <div class="enumerator-stats">
+                                        <span class="completed">89 surveys</span>
+                                        <span class="quality-score">88% quality</span>
+                                        <span class="status active">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alerts-section">
+                    <h3>System Alerts</h3>
+                    <div class="alerts-list">
+                        <div class="alert alert-success">
+                            <span class="alert-icon">✅</span>
+                            <div class="alert-content">
+                                <div class="alert-title">Quality threshold maintained</div>
+                                <div class="alert-time">2 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <div class="alert-title">Low response rate in West Bengal</div>
+                                <div class="alert-time">15 minutes ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quality Center Section -->
+            <section id="quality" class="section">
+                <div class="page-header">
+                    <h2>Data Quality & Validation Center</h2>
+                    <p>Comprehensive quality assurance and paradata monitoring</p>
+                </div>
+
+                <div class="quality-dashboard">
+                    <div class="validation-rules">
+                        <h3>Real-Time Validation</h3>
+                        <div class="validation-list">
+                            <div class="validation-rule">
+                                <div class="rule-status active">✅</div>
+                                <div class="rule-content">
+                                    <div class="rule-title">Response Time Check</div>
+                                    <div class="rule-description">Flags responses completed too quickly (&lt;2 minutes)</div>
+                                </div>
+                                <div class="rule-stats">12 flagged today</div>
+                            </div>
+                            <div class="validation-rule">
+                                <div class="rule-status active">✅</div>
+                                <div class="rule-content">
+                                    <div class="rule-title">GPS Location Validation</div>
+                                    <div class="rule-description">Verifies respondent location within survey area</div>
+                                </div>
+                                <div class="rule-stats">3 violations</div>
+                            </div>
+                            <div class="validation-rule">
+                                <div class="rule-status active">✅</div>
+                                <div class="rule-content">
+                                    <div class="rule-title">Consistency Checks</div>
+                                    <div class="rule-description">Identifies contradictory response patterns</div>
+                                </div>
+                                <div class="rule-stats">7 inconsistencies</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paradata-viz">
+                        <h3>Paradata Analysis</h3>
+                        <div class="paradata-charts">
+                            <div class="chart-container">
+                                <h4>Response Time Distribution</h4>
+                                <div style="position: relative; height: 200px;">
+                                    <canvas id="responseTimeChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Device Type Usage</h4>
+                                <div style="position: relative; height: 200px;">
+                                    <canvas id="deviceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quality-indicators">
+                        <h3>Quality Indicators</h3>
+                        <div class="indicator-grid">
+                            <div class="quality-indicator">
+                                <div class="indicator-icon">📊</div>
+                                <div class="indicator-content">
+                                    <div class="indicator-value">94.2%</div>
+                                    <div class="indicator-label">Data Completeness</div>
+                                </div>
+                                <div class="indicator-trend positive">+2.1%</div>
+                            </div>
+                            <div class="quality-indicator">
+                                <div class="indicator-icon">🎯</div>
+                                <div class="indicator-content">
+                                    <div class="indicator-value">91.8%</div>
+                                    <div class="indicator-label">Response Accuracy</div>
+                                </div>
+                                <div class="indicator-trend positive">+1.5%</div>
+                            </div>
+                            <div class="quality-indicator">
+                                <div class="indicator-icon">⚡</div>
+                                <div class="indicator-content">
+                                    <div class="indicator-value">87.3%</div>
+                                    <div class="indicator-label">Auto-coding Success</div>
+                                </div>
+                                <div class="indicator-trend positive">+3.2%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quality-actions">
+                    <h3>Quality Actions</h3>
+                    <div class="action-panel">
+                        <button class="btn btn--primary">📋 Generate Quality Report</button>
+                        <button class="btn btn--secondary">🔍 Investigate Outliers</button>
+                        <button class="btn btn--outline">📤 Export Paradata</button>
+                        <button class="btn btn--outline">⚙️ Update Validation Rules</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="section">
+                <div class="page-header">
+                    <h2>Analytics & Insights</h2>
+                    <p>AI-powered insights and comprehensive data analysis</p>
+                </div>
+
+                <div class="analytics-layout">
+                    <div class="insights-section">
+                        <h3>AI-Powered Insights</h3>
+                        <div class="insights-list">
+                            <div class="insight-item">
+                                <div class="insight-icon">🏘️</div>
+                                <div class="insight-content">
+                                    <div class="insight-text">Rural respondents show 15% higher satisfaction with digital services compared to last survey</div>
+                                    <div class="insight-confidence">95% confidence</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="insight-icon">📱</div>
+                                <div class="insight-content">
+                                    <div class="insight-text">WhatsApp surveys achieve 23% higher completion rates than traditional methods</div>
+                                    <div class="insight-confidence">92% confidence</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="insight-icon">🌐</div>
+                                <div class="insight-content">
+                                    <div class="insight-text">Response quality improves by 18% when using local language options</div>
+                                    <div class="insight-confidence">98% confidence</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-charts">
+                        <div class="chart-container">
+                            <h3>State-wise Response Analysis</h3>
+                            <div style="position: relative; height: 400px;">
+                                <canvas id="stateChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>Channel Performance Comparison</h3>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="channelChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-tools">
+                        <h3>Analysis Tools</h3>
+                        <div class="tools-grid">
+                            <div class="tool-card">
+                                <div class="tool-icon">📊</div>
+                                <h4>Cross Tabulation</h4>
+                                <p>Analyze relationships between variables</p>
+                                <button class="btn btn--sm btn--primary">Launch Tool</button>
+                            </div>
+                            <div class="tool-card">
+                                <div class="tool-icon">📈</div>
+                                <h4>Trend Analysis</h4>
+                                <p>Identify patterns over time</p>
+                                <button class="btn btn--sm btn--primary">Launch Tool</button>
+                            </div>
+                            <div class="tool-card">
+                                <div class="tool-icon">🎯</div>
+                                <h4>Sentiment Analysis</h4>
+                                <p>Analyze sentiment in text responses</p>
+                                <button class="btn btn--sm btn--primary">Launch Tool</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="export-section">
+                    <h3>Export & Reports</h3>
+                    <div class="export-options">
+                        <button class="btn btn--primary">📊 Generate Executive Summary</button>
+                        <button class="btn btn--secondary">📄 Export Raw Data (CSV)</button>
+                        <button class="btn btn--secondary">📈 Create Visual Report</button>
+                        <button class="btn btn--outline">🔗 Share Dashboard Link</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for AI Question Preview -->
+    <div id="ai-question-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>AI Generated Question</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="ai-question-preview"></div>
+                <div class="modal-actions">
+                    <button class="btn btn--primary">✅ Add to Survey</button>
+                    <button class="btn btn--secondary">🔄 Regenerate</button>
+                    <button class="btn btn--outline">✏️ Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
